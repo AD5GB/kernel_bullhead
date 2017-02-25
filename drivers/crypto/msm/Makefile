@@ -1,3 +1,6 @@
+## RDD - dangerous hack.  Fix qcedev.c array bounds overrun
+ccflags-y += -Wno-array-bounds
+
 ifneq ($(CONFIG_FIPS_ENABLE), y)
 obj-$(CONFIG_CRYPTO_DEV_QCEDEV) += qcedev.o
 ifeq ($(CONFIG_CRYPTO_DEV_QCE50), y)
