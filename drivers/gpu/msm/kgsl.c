@@ -2586,9 +2586,9 @@ long kgsl_ioctl_drawctxt_create(struct kgsl_device_private *dev_priv,
 	/* Commit the pointer to the context in context_idr */
 	write_lock(&device->context_lock);
 	idr_replace(&device->context_idr, context, context->id);
+	param->drawctxt_id = context->id;
 	write_unlock(&device->context_lock);
 
-	param->drawctxt_id = context->id;
 done:
 	mutex_unlock(&device->mutex);
 	return result;
@@ -4920,7 +4920,7 @@ static int __init kgsl_core_init(void)
 	init_kthread_worker(&kgsl_driver.worker);
 
 	kgsl_driver.worker_thread = kthread_run(kthread_worker_fn,
-		&kgsl_driver.worker, "kgsl_worker_thread");
+						&kgsl_driver.worker, "kgsl_worker_thread");
 
 	if (IS_ERR(kgsl_driver.worker_thread)) {
 		pr_err("unable to start kgsl thread\n");
